@@ -20,9 +20,9 @@ var common = {
     preLoaders: [
       {
         test: /\.js$/,
-        // defin an include so we checkjust th files we need
+        // define an include so we check just the files we need
         include: path.resolve(ROOT_PATH, 'app'),
-        loader: 'jshint'
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -30,7 +30,7 @@ var common = {
         test: /\.css$/,
         loaders: ['style', 'css'],
         include: path.resolve(ROOT_PATH, 'app')
-      }
+    }
     ]
   },
   // Getting an error when using this in the webpack.config.js

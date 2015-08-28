@@ -38,8 +38,8 @@ export default class Note extends React.Component {
     return (
       <div>
         <span className='task'
-          onClick={this.edit} >
-          {this.props.task }
+          onClick={this.edit}>
+          {this.props.task}
         </span>
         {onDelete ? this.renderDelete() : null}
       </div>);
@@ -52,7 +52,6 @@ export default class Note extends React.Component {
   }
 
   checkEnter(event) {
-
     if(event.key === 'Enter') {
       this.finishEdit(event);
     }

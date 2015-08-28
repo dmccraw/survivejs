@@ -1,12 +1,12 @@
 import uuid from 'node-uuid';
 import alt from '../libs/alt';
-import NoteActions from '../actions/NoteAction';
+import NoteActions from '../actions/NoteActions';
 
 class NoteStore {
   constructor() {
     this.bindActions(NoteActions);
 
-    this.notes = [];
+    this.notes = this.notes || [];
   }
 
   create(note) {
@@ -21,7 +21,6 @@ class NoteStore {
 
   update({id, task}) {
     let notes = this.notes;
-
     const noteIndex = this.findNote(id);
 
     if(noteIndex < 0) {
