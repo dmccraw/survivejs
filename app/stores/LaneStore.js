@@ -106,6 +106,40 @@ class LaneStore {
     return laneIndex;
   }
 
+  move({sourceNote, targetNote}) {
+    console.log('source', sourceNote, 'target', targetNote);
+    const lanes = this.lanes;
+    const sourceId = sourceNote.id;
+    const targetId = targetNote.id;
+    const sourceLane = lanes.filter((lane) => {
+      return lane.notes.indexOf(sourceId) > 0;
+    })[0];
+    const targetLane = lanes.filter((lane) => {
+      return lane.notes.indexOf(targetId) > 0;
+    })[0];
+    const sourceNoteIndex = sourceLane.notes.indexOf(sourceId);
+    const targetNoteIndex = targetLand.notes.indexOf(targetId);
+
+    if(sourceLane === targetLane) {
+      // move at once to avoid complications
+      sourceLane.notes = update(sourceLane.notes, {
+        $splice: [
+          [sourceNoteIndes, 1],
+          [targetNoteIndex, 0, sourceId]
+        ]
+      });
+    }
+    else {
+      // get id of the source
+      sourceLane.notes.splice(sourceNoteIndex, 1);
+
+      // and move it to the target
+      targetLane.notes.splice(targetNoteIndex, 0, sourceId);
+    }
+
+    this.setState({lanes});
+  }
+
 }
 
 export default alt.createStore(LaneStore, 'LaneStore');

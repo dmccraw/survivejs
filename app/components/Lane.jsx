@@ -5,7 +5,24 @@ import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
+import { DropTarget } from 'react-dnd';
+import ItemTypes from '../libs/item_types';
 
+const noteTarget = {
+  hover(targetProps, monitor) {
+    const targetNote = targetProps.data || {};
+    const sourceProps = monitor.getItem();
+    const sourceNote = sourceProps.data || {};
+
+    if(!targetProps.notes.length) {
+      console.log('source', sourceProps, 'target', targetProps);
+    }
+  }
+};
+
+@DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
+  connectDropTarget: connect.dropTarget()
+}))
 export default class Lane extends React.Component {
   constructor(props) {
     super(props);
@@ -18,9 +35,9 @@ export default class Lane extends React.Component {
   }
 
   render() {
-    const {id, name, notes, ...props} = this.props;
+    const {connectDropTarget, id, name, notes, ...props} = this.props;
 
-    return (
+    return connectDropTarget(
       <div {...props}>
         <div className='lane-header'>
           <Editable
@@ -53,7 +70,7 @@ export default class Lane extends React.Component {
   }
 
   editNote(noteId, task) {
-    NoteActions.update(noteId, task);
+    NoteActions.update({noteId, task});
   }
 
   deleteNote(laneId, noteId) {

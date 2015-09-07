@@ -36,6 +36,7 @@
     "expose-loader": "^0.7.0",
     "node-uuid": "^1.4.3",
     "react": "^0.13.3",
+    "react-dnd": "^1.1.5",
     "script-loader": "^0.6.1"
   }
 }
